@@ -1,0 +1,162 @@
+version: '3.8'
+
+services:
+
+  city-score:
+    image: nilseri/city-score:0.0.1-SNAPSHOT
+    ports:
+      - "8000:8000"
+    networks:
+      - score-network
+    depends_on:
+      - config-server
+      - kafka-zookeeper
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CLOUD_CONFIG_PROFILE: dev
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+      SPRING_ZIPKIN_BASEURL: http://zipkin-server:9411/
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 30
+    command: ["./wait-for-it.sh", "config-server:8888/actuator/health"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+
+  score-segment:
+    image: nilseri/score-segment:0.0.1-SNAPSHOT
+    ports:
+      - "8100:8100"
+    networks:
+      - score-network
+    depends_on:
+      - config-server
+      - kafka-zookeeper
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CLOUD_CONFIG_PROFILE: dev
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+      SPRING_ZIPKIN_BASEURL: http://zipkin-server:9411/
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 30
+    command: ["./wait-for-it.sh", "config-server:8888/actuator/health"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+
+  score-calculator:
+    image: nilseri/score-calculator:0.0.1-SNAPSHOT
+    ports:
+      - "8200:8200"
+    networks:
+      - score-network
+    depends_on:
+      - config-server
+      - kafka-zookeeper
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_CLOUD_CONFIG_PROFILE: dev
+      SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+      SPRING_ZIPKIN_BASEURL: http://zipkin-server:9411/
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 30
+    command: ["./wait-for-it.sh", "config-server:8888/actuator/health"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+
+  api-gateway:
+    image: nilseri/api-gateway:0.0.1-SNAPSHOT
+    ports:
+      - "8765:8765"
+    networks:
+      - score-network
+    depends_on:
+      - config-server
+      - kafka-zookeeper
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://naming-server:8761/eureka
+      SPRING_ZIPKIN_BASEURL: http://zipkin-server:9411/
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+      SPRING_CLOUD_CONFIG_FAIL_FAST: 'true'
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: 30
+    command: ["./wait-for-it.sh", "config-server:8888/actuator/health"]
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+
+  naming-server:
+    image: nilseri/naming-server:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+    networks:
+      - score-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+
+  config-server:
+    image: nilseri/config-server:0.0.1-SNAPSHOT
+    ports:
+      - "8888:8888"
+    networks:
+      - score-network
+    depends_on:
+      - kafka-zookeeper
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M
+
+  zipkin-server:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    networks:
+      - score-network
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka-zookeeper:9092
+      STORAGE_TYPE: mem
+      MYSQL_HOST: mysql
+    depends_on:
+      - kafka-zookeeper
+    restart: always #Restart if there is a problem starting up
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M
+
+  kafka-zookeeper:
+    image: openzipkin/zipkin-kafka:latest
+    ports:
+      - 19092:19092
+    networks:
+      - score-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M
+
+networks:
+  score-network:
