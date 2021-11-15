@@ -13,7 +13,7 @@
 	<artifactId>naming-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>naming-server</name>
-	<description>Centralized Configuration Server</description>
+	<description>Eureka Naming Server</description>
 
 	<properties>
 		<java.version>16</java.version>

@@ -1,0 +1,294 @@
+{
+	"info": {
+		"_postman_id": "001f83fd-953e-4975-ad4e-413f6c7e2e8e",
+		"name": "nils-microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "Score Calculator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8765/calculate-score?idNumber=3654118644&name=senorita&surname=dev&phoneNumber=5007665432&cityCode=35&incomeBracketMultiplierId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"calculate-score"
+							],
+							"query": [
+								{
+									"key": "idNumber",
+									"value": "3654118644"
+								},
+								{
+									"key": "name",
+									"value": "senorita"
+								},
+								{
+									"key": "surname",
+									"value": "dev"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "5007665432"
+								},
+								{
+									"key": "cityCode",
+									"value": "35"
+								},
+								{
+									"key": "incomeBracketMultiplierId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "City Score",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8765/city-score/35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"city-score",
+								"35"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Score Segment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8765/score-segment/3519722222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"score-segment",
+								"3519722222"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gRPC",
+			"item": [
+				{
+					"name": "Score Calculator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8200/calculate-score?idNumber=3654118644&name=senorita&surname=dev&phoneNumber=5007665432&cityCode=35&incomeBracketMultiplierId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8200",
+							"path": [
+								"calculate-score"
+							],
+							"query": [
+								{
+									"key": "idNumber",
+									"value": "3654118644"
+								},
+								{
+									"key": "name",
+									"value": "senorita"
+								},
+								{
+									"key": "surname",
+									"value": "dev"
+								},
+								{
+									"key": "phoneNumber",
+									"value": "5007665432"
+								},
+								{
+									"key": "cityCode",
+									"value": "35"
+								},
+								{
+									"key": "incomeBracketMultiplierId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "City Score",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/city-score/35",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"city-score",
+						"35"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Score Calculator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8200/calculate-score?idNumber=3654118644&name=senorita&surname=dev&phoneNumber=5007665432&cityCode=35&incomeBracketMultiplierId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8200",
+					"path": [
+						"calculate-score"
+					],
+					"query": [
+						{
+							"key": "idNumber",
+							"value": "3654118644"
+						},
+						{
+							"key": "name",
+							"value": "senorita"
+						},
+						{
+							"key": "surname",
+							"value": "dev"
+						},
+						{
+							"key": "phoneNumber",
+							"value": "5007665432"
+						},
+						{
+							"key": "cityCode",
+							"value": "35"
+						},
+						{
+							"key": "incomeBracketMultiplierId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Score Segment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8100/score-segment/3519722222",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8100",
+					"path": [
+						"score-segment",
+						"3519722222"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config Server",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/city-score/dev",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"city-score",
+						"dev"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config Server Actuator Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Config Server Bus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/actuator/busrefresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"actuator",
+						"busrefresh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
