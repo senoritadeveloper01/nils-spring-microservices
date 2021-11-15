@@ -1,6 +1,5 @@
 # A Sample Spring Boot Microservices Project
 This is a sample microservices project developed with Spring Boot and Spring Cloud, using Java version 16.
-mikro servis imajı ve spring boot imajı ekleyebilirsin
 
 <img src="https://img.shields.io/badge/Language-Java-orange.svg">
 
